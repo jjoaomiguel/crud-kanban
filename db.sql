@@ -12,6 +12,7 @@ CREATE TABLE tarefas (
     descricao VARCHAR(100) NOT NULL,
     setor VARCHAR(100) NOT NULL,
     prioridade ENUM('Baixa', 'Média', 'Alta') NOT NULL,
+    data_cadastro DATE NOT NULL,
     status_tarefa ENUM('Fazer', 'Fazendo', 'Pronto') NOT NULL,
     usuario_responsavel INT NOT NULL,
     FOREIGN KEY (usuario_responsavel) REFERENCES usuarios(id)
@@ -20,5 +21,5 @@ CREATE TABLE tarefas (
 INSERT INTO usuarios (nome, email) VALUES
 ('João Medeiros', 'joao@medeiros');
 
-INSERT INTO tarefas (descricao, setor, prioridade, status_tarefa, usuario_responsavel) VALUES
-('Guardar os refrigerantes', 'Bebidas', 'Média', 'Fazer', 1);
+INSERT INTO tarefas (descricao, setor, prioridade, data_cadastro, status_tarefa, usuario_responsavel) VALUES
+('Guardar os refrigerantes', 'Bebidas', 'Média', '2025-09-10', 'Fazer', 1);
