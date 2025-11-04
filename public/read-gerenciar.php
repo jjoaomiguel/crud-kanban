@@ -1,6 +1,12 @@
 <?php
 include '../includes/conexao.php';
 
+if (isset($_GET['logout'])) {
+    session_destroy();
+    header("Location: ../index.php");
+    exit;
+}
+
 $tarefas = $mysqli->query("
     SELECT t.id, t.descricao, t.setor, t.prioridade, t.data_cadastro, t.status_tarefa, u.nome AS usuario
     FROM tarefas t
@@ -23,6 +29,9 @@ $tarefas = $mysqli->query("
             <li class="nav-item"><a class="nav-link text-white" href="create-usuarios.php">Usuários</a></li>
             <li class="nav-item"><a class="nav-link text-white" href="create-tarefas.php">Tarefas</a></li>
             <li class="nav-item"><a class="nav-link text-white" href="read-gerenciar.php">Gerenciar</a></li>
+            <li class="nav-item ms-3">
+                <a href="?logout=1" class="btn btn-danger btn-sm">Sair</a>
+            </li>
         </ul>
     </div>
 </nav>

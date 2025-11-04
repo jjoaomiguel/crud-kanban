@@ -2,9 +2,11 @@ CREATE DATABASE tarefas_db;
 USE tarefas_db;
 
 CREATE TABLE usuarios (
-	id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(120) NOT NULL,
-    email VARCHAR(255) NOT NULL
+    email VARCHAR(255) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL,
+    idade INT DEFAULT NULL
 );
 
 CREATE TABLE tarefas (
@@ -18,8 +20,8 @@ CREATE TABLE tarefas (
     FOREIGN KEY (usuario_responsavel) REFERENCES usuarios(id)
 );
 
-INSERT INTO usuarios (nome, email) VALUES
-('João Medeiros', 'joao@medeiros');
+INSERT INTO usuarios (nome, email, senha, idade) VALUES
+('João Medeiros', 'joao@medeiros', '123456', 20);
 
 INSERT INTO tarefas (descricao, setor, prioridade, data_cadastro, status_tarefa, usuario_responsavel) VALUES
 ('Guardar os refrigerantes', 'Bebidas', 'Média', '2025-09-10', 'Fazer', 1);

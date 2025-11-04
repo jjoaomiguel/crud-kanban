@@ -1,6 +1,12 @@
 <?php
 include '../includes/conexao.php';
 
+if (isset($_GET['logout'])) {
+    session_destroy();
+    header("Location: ../index.php");
+    exit;
+}
+
 $id = $_GET['id'] ?? null;
 
 if (!$id) {

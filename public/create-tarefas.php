@@ -1,6 +1,12 @@
 <?php
 include '../includes/conexao.php';
 
+if (isset($_GET['logout'])) {
+    session_destroy();
+    header("Location: ../index.php");
+    exit;
+}
+
 $usuarios = $mysqli->query("SELECT id, nome FROM usuarios");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -40,6 +46,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <li class="nav-item"><a class="nav-link text-white" href="create-usuarios.php">Usuários</a></li>
             <li class="nav-item"><a class="nav-link text-white" href="create-tarefas.php">Tarefas</a></li>
             <li class="nav-item"><a class="nav-link text-white" href="read-gerenciar.php">Gerenciar</a></li>
+            <li class="nav-item ms-3">
+                <a href="?logout=1" class="btn btn-danger btn-sm">Sair</a>
+            </li>
         </ul>
     </div>
 </nav>

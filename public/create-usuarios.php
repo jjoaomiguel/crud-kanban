@@ -1,5 +1,12 @@
 <?php
 include '../includes/conexao.php';
+session_start();
+
+if (isset($_GET['logout'])) {
+    session_destroy();
+    header("Location: ../index.php");
+    exit;
+}
 
 $erro = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -16,7 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $erro = 'Preencha todos os campos.';
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -29,17 +35,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <nav class="navbar navbar-expand-lg" style="background-color:rgb(0, 86, 179);">
     <div class="container-fluid">
         <h3 class="text-white">Gerenciamento de Tarefas</h3>
-        <ul class="navbar-nav ms-auto">
+        <ul class="navbar-nav ms-auto align-items-center">
             <li class="nav-item"><a class="nav-link text-white" href="create-usuarios.php">Usuários</a></li>
             <li class="nav-item"><a class="nav-link text-white" href="create-tarefas.php">Tarefas</a></li>
             <li class="nav-item"><a class="nav-link text-white" href="read-gerenciar.php">Gerenciar</a></li>
+            <li class="nav-item ms-3">
+                <a href="?logout=1" class="btn btn-danger btn-sm">Sair</a>
+            </li>
         </ul>
     </div>
 </nav>
 
 <div class="container mt-4">
     <h2>Cadastro de Usuários</h2>
-    <?php if($erro): ?><div class="alert alert-danger"><?= htmlspecialchars($erro) ?></div><?php endif; ?>
+    <?php if($erro): ?>
+        <div class="alert alert-danger"><?= htmlspecialchars($erro) ?></div>
+    <?php endif; ?>
     <form method="post" class="row g-3">
         <div class="col-md-6">
             <label class="form-label">Nome:</label>
