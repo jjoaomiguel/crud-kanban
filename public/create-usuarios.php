@@ -1,9 +1,8 @@
 <?php
-include '../includes/conexao.php';
 session_start();
+include '../includes/conexao.php';
 
-if (isset($_GET['logout'])) {
-    session_destroy();
+if (!isset($_SESSION['usuario_id'])) {
     header("Location: ../index.php");
     exit;
 }
@@ -12,10 +11,11 @@ $erro = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome = trim($_POST['nome'] ?? '');
     $email = trim($_POST['email'] ?? '');
+    $senha = trim($_POST['senha'] ?? '');
 
-    if ($nome && $email) {
-        $stmt = $mysqli->prepare("INSERT INTO usuarios (nome, email) VALUES (?, ?)");
-        $stmt->bind_param("ss", $nome, $email);
+    if ($nome && $email && $senha) {
+        $stmt = $mysqli->prepare("INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)");
+        $stmt->bind_param("sss", $nome, $email, $senha);
         $stmt->execute();
         header('Location: create-usuarios.php');
         exit;
@@ -35,30 +35,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <nav class="navbar navbar-expand-lg" style="background-color:rgb(0, 86, 179);">
     <div class="container-fluid">
         <h3 class="text-white">Gerenciamento de Tarefas</h3>
-        <ul class="navbar-nav ms-auto align-items-center">
+        <ul class="navbar-nav ms-auto">
             <li class="nav-item"><a class="nav-link text-white" href="create-usuarios.php">Usuários</a></li>
             <li class="nav-item"><a class="nav-link text-white" href="create-tarefas.php">Tarefas</a></li>
             <li class="nav-item"><a class="nav-link text-white" href="read-gerenciar.php">Gerenciar</a></li>
-            <li class="nav-item ms-3">
-                <a href="?logout=1" class="btn btn-danger btn-sm">Sair</a>
-            </li>
+            <li class="nav-item"><a class="nav-link text-white" href="../index.php">Sair</a></li>
         </ul>
     </div>
 </nav>
 
 <div class="container mt-4">
     <h2>Cadastro de Usuários</h2>
-    <?php if($erro): ?>
-        <div class="alert alert-danger"><?= htmlspecialchars($erro) ?></div>
-    <?php endif; ?>
+    <?php if($erro): ?><div class="alert alert-danger"><?= htmlspecialchars($erro) ?></div><?php endif; ?>
     <form method="post" class="row g-3">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <label class="form-label">Nome:</label>
             <input name="nome" class="form-control" required>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <label class="form-label">Email:</label>
             <input name="email" type="email" class="form-control" required>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Senha:</label>
+            <input name="senha" type="password" class="form-control" required>
         </div>
         <div class="col-12">
             <button class="btn btn-primary">Cadastrar</button>
