@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'includes/conexao.php'; // ✅ Caminho corrigido
+include 'includes/conexao.php';
 
 $msg = '';
 
@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $user = $result->fetch_assoc();
         $stmt->close();
 
-        if ($user && $senha === $user['senha']) { // Pode trocar depois por password_verify()
+        if ($user && $senha === $user['senha']) {
             $_SESSION['usuario_id'] = $user['id'];
             $_SESSION['usuario_nome'] = $user['nome'];
             $_SESSION['usuario_email'] = $user['email'];

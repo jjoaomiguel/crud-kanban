@@ -1,6 +1,6 @@
 <?php
 // Conexão com o banco
-$mysqli = new mysqli("localhost", "root", "", "tarefas_db");
+$mysqli = new mysqli("localhost", "root", "root", "tarefas_db");
 if ($mysqli->connect_errno) {
     die("Erro de conexão: " . $mysqli->connect_error);
 }
@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $stmt = $mysqli->prepare("INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)");
         $stmt->bind_param("sss", $nome, $email, $senha);
         if ($stmt->execute()) {
-            $msg = "Cadastro realizado com sucesso! <a href='login.php'>Clique aqui para fazer login</a>";
+            $msg = "Cadastro realizado com sucesso! <a href='../index.php'>Clique aqui para fazer login</a>";
         } else {
             $msg = "Erro ao cadastrar: " . $stmt->error;
         }

@@ -1,0 +1,77 @@
+Sistema Kanban com Login, Sessão e Integração da API ViaCEP
+
+Descrição do Projeto:
+Este projeto é uma aplicação web de gerenciamento de tarefas em formato Kanban, desenvolvida para uso individual por usuário. Ele permite cadastrar, editar, excluir e mover tarefas entre as colunas:
+- A Fazer
+- Fazendo
+- Pronto
+
+Além disso, o sistema agora inclui:
+- Cadastro e Login de Usuário: cada usuário possui e-mail, senha (armazenada de forma segura) e nome;
+- Controle de Sessão Ativa: apenas usuários autenticados podem acessar o sistema;
+- Integração com API Pública (ViaCEP): permite buscar dados de endereço automaticamente a partir de um CEP informado;
+- O projeto foi desenvolvido para ser uma aplicação realista, garantindo privacidade e acesso individualizado às tarefas de cada usuário.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Funcionalidades: 
+1. Cadastro de Usuário
+- Usuário informa nome, e-mail e senha.
+- O sistema valida se o e-mail é único.
+- Senhas são armazenadas de forma segura.
+- Após cadastro, o usuário pode acessar o sistema via login.
+
+2. Login:
+- Tela de login com validação de credenciais;
+- Usuário autenticado inicia uma sessão ativa;
+- Mensagens de erro são exibidas em caso de login incorreto.
+
+3. Sessão Ativa:
+- Apenas usuários autenticados podem acessar telas internas;
+- Sessão ativa mantém o usuário logado enquanto utiliza o sistema;
+- Logout encerra a sessão e redireciona para a tela de login;
+- Apenas as tarefas do usuário logado são exibidas.
+
+4. Kanban de Tarefas:
+- Três colunas: A Fazer, Fazendo, Pronto;
+- Funcionalidades CRUD: Criar, Ler, Atualizar, Excluir tarefas;
+- Cada tarefa possui status e prioridade;
+- Movimentação de tarefas entre colunas refletida automaticamente.
+
+5. Integração ViaCEP
+- No cadastro de tarefas, o usuário pode informar um CEP.
+- O sistema faz requisição à API do ViaCEP e preenche automaticamente o endereço/município/setor.
+- O resultado é exibido de forma clara na interface.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Tecnologias Utilizadas:
+- Backend: PHP
+- Banco de Dados: MySQL
+- Frontend: HTML, CSS, JavaScript
+- API Externa: ViaCEP
+- Gerenciamento de Sessão: PHP Sessions
+
+Como Executar o Projeto:
+- Clone o repositório
+- Importe o script SQL (db.sql) no MySQL para criar o banco e as tabelas.
+- Configure a conexão com o banco de dados em includes/conexao.php.
+- Abra o projeto no navegador através de um servidor local (XAMPP).
+- Acesse cadastro-usuarios.php para criar um novo usuário.
+- Faça login em index.php.
+- Gerencie suas tarefas no Kanban (read-gerenciar.php).
+
+Uso da API ViaCEP:
+- Ao cadastrar uma tarefa, informe o CEP no campo correspondente.
+- O sistema fará uma requisição HTTP GET para:
+  https://viacep.com.br/ws/{CEP}/json/
+- Os dados retornados (logradouro, bairro, cidade, estado) serão preenchidos automaticamente nos campos da tarefa.
+
+Diagramas/Documentações:
+- Diagrama Entidade-Relacionamento (DER): atualizado com campos de usuário e senha.
+- Diagrama de Caso de Uso: inclui login, logout, sessão e integração com API.
+
+Observações:
+- Senhas são armazenadas de forma hash para maior segurança
+- Apenas tarefas do usuário logado são exibidas.
+- Sistema pronto para ser expandido com novas APIs externas ou funcionalidades adicionais.

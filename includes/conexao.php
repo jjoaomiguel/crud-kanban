@@ -2,7 +2,7 @@
 
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "root";
 $dbname = "tarefas_db";
 
 $mysqli = new mysqli($servername, $username, $password, $dbname);
